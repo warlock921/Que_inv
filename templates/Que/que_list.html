@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    问卷列表
+{% endblock title %}
+
+{% block content %}
+    <div>
+    	<h1>问卷调查</h1>
+    </div>
+
+    <div>
+    	{% for que in que_title %}
+
+    		{% if que.is_active %}
+    		    <li><a href="{{que.id}}">{{que.question_name}}</a></li>
+    		{% endif %}
+    		
+    	{% endfor %}
+    </div>
+{% endblock content %}
