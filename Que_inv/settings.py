@@ -52,6 +52,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Que_inv.urls'
 
+LOGIN_REDIRECT_URL = '/Que/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

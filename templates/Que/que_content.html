@@ -8,28 +8,48 @@
         <h2>发布时间：{{pub | date:"Y-m-d"}}</h2>
     </div>
     <div>
+        <div>
+            <h2>问 卷 调 查 说 明</h2>
+        </div>
+        <div>
+            {{que_content.questionnaire_description}}
+        </div>
+        
+    </div>
+    <div>
         {% for que_title in que_choices_title %}
-            <div>
-            <h4>{{forloop.counter}}. {{que_title}} {% if que_title.multi_choice %}(可多选){% endif %} </h4>
-            </div>
-            {% for que_choice in que_choices %}
-                
-                        {% if que_choice.question_id == que_title.id %}
 
-                            {% if que_title.multi_choice %}
-                            <span style="margin-right: 5px">
-                                <input type="checkbox" name="{{que_choice.question_id}}" value="{{que_choice.descripiton}}" ><span style="margin-right: 3px">{{que_choice.order_in_list}}.</span>{{que_choice.descripiton}}
-                            </span>
-                            {% else %}
-                            <span style="margin-right: 5px">
-                                <input type="radio" name="{{que_choice.question_id}}" value="{{que_choice.descripiton}}" ><span style="margin-right: 3px">{{que_choice.order_in_list}}.</span>{{que_choice.descripiton}}
-                            </span>
-                            {% endif %}
-
-                        {% endif %}
+            {% if que_title.is_first_title %}
+                <div>
+                    <h2>{{que_title}}</h2>
+                </div>
+            {% elif que_title.is_second_title %}
+                <div>
+                    <h4>{{que_title}}</h4>
+                </div>
+            {% else %}
+                <div>
+                    <h4>{{que_title}} {% if que_title.multi_choice %}(可多选){% endif %} </h4>
+                </div>
+                {% for que_choice in que_choices %}
                     
-            {% endfor %}
+                    {% if que_choice.question_id == que_title.id %}
 
+                        {% if que_title.multi_choice %}
+                        <span style="margin-right: 5px">
+                            <input type="checkbox" name="{{que_choice.question_id}}" value="{{que_choice.descripiton}}" ><span style="margin-right: 3px">{{que_choice.order_in_list}}.</span>{{que_choice.descripiton}}
+                        </span>
+                        {% else %}
+                        <span style="margin-right: 5px">
+                            <input type="radio" name="{{que_choice.question_id}}" value="{{que_choice.descripiton}}" ><span style="margin-right: 3px">{{que_choice.order_in_list}}.</span>{{que_choice.descripiton}}
+                        </span>
+                        {% endif %}
+
+                    {% endif %}
+                        
+                {% endfor %}
+            {% endif %}
+            
         {% empty %}
                 问卷里没有任何内容，快去添加吧！
         {% endfor %}
